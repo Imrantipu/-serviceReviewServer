@@ -26,6 +26,12 @@ async function run() {
             const visaServices = await cursor.limit(3).toArray();
             res.send(visaServices);
         });
+        app.get('/services', async (req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query);
+            const allServices = await cursor.toArray();
+            res.send(allServices);
+        });
 
     }
     finally {
