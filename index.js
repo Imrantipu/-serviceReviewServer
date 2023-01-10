@@ -19,6 +19,7 @@ async function run() {
     try
     {
         const serviceCollection = client.db('emigrationHook').collection('services');
+        const addServiceCollection = client.db('emigrationHook').collection('addservices');
 
         app.get('/home', async (req, res) => {
             const query = {}
@@ -43,6 +44,11 @@ async function run() {
             const query = { _id : ObjectId(id) };
             const service = await serviceCollection.findOne(query);
             res.send(service);
+        });
+        app.post('/addservice', async (req, res) => {
+            const order = req.body;
+            const result = await addServiceCollection.insertOne(order);
+            res.send(result);
         });
 
 
